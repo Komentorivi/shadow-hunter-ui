@@ -30,6 +30,7 @@ Fonts (IBM Plex Sans, JetBrains Mono) load from Google Fonts via `@import` in th
 If the environment blocks Google Fonts, the system fallbacks (Segoe UI, Consolas) are used.
 
 ## Changelog
+- **v1.5** – Health ring `.sh-ring` (SVG gauge, `--value` 0–100, is-good/fair/poor/unscored) and `.sh-health-cap` for the score cap reason.
 - **v1.4** – Policy health: `.sh-health` (overall score, grade, provisional note) and `.sh-meter` per dimension
   (`is-good` / `is-fair` / `is-poor` / `is-unscored`). Added to the overview mockup.
 - **v1.3** – Analyst components: `.sh-queue` (prioritized worklist), `.sh-ready` (evidence sources), `.sh-facts` (non-zero findings),

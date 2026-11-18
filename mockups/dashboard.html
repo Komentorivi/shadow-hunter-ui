@@ -44,15 +44,22 @@
       </div></div>
       <div class="sh-health">
         <div class="sh-health-overall">
-          <div class="sh-health-score">61<small>/100</small></div>
-          <div class="sh-health-grade is-fair">Fair</div>
-          <p class="sh-health-note">Provisional. Based on 64% of the evidence; the score is final at 70%.</p>
+          <div class="sh-ring is-poor" style="--value:30">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="sh-ring-track" cx="60" cy="60" r="52" pathLength="100"/>
+              <circle class="sh-ring-fill" cx="60" cy="60" r="52" pathLength="100"/>
+            </svg>
+            <div class="sh-ring-label"><span class="sh-ring-value">30</span><span class="sh-ring-max">/100</span></div>
+          </div>
+          <div class="sh-health-grade is-poor">Poor</div>
+          <p class="sh-health-cap">Capped by 1 rule that allows any source to any destination on any service.</p>
+          <p class="sh-health-note">Provisional. Based on 61% of the evidence; the score is final at 70%.</p>
         </div>
         <div class="sh-health-dims">
-          <a class="sh-meter is-poor" href="#" style="--value:48%">
-            <span class="sh-meter-name">Exposure</span><span class="sh-meter-value">48</span>
+          <a class="sh-meter is-poor" href="#" style="--value:10%">
+            <span class="sh-meter-name">Exposure</span><span class="sh-meter-value">10</span>
             <span class="sh-meter-bar"><span></span></span>
-            <span class="sh-meter-why">3 any-to-any allows and 38 broad rules.</span></a>
+            <span class="sh-meter-why">1 rule allows any source to any destination on any service. 17 broad rules carry 24% of all hits.</span></a>
           <a class="sh-meter is-fair" href="#" style="--value:71%">
             <span class="sh-meter-name">Rule hygiene</span><span class="sh-meter-value">71</span>
             <span class="sh-meter-bar"><span></span></span>

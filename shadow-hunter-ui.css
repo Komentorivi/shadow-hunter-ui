@@ -1,5 +1,5 @@
 /* =====================================================================
-   SHADOW HUNTER UI  v1.4
+   SHADOW HUNTER UI  v1.5
    Professional dark green design system (no glow, no rain, no blinking). Framework-agnostic: plain CSS,
    works with HTML, React, Vue, Svelte, Electron, Tauri, Flask/Django
    templates. All classes use the prefix .sh-  All tokens use --sh-
@@ -376,3 +376,29 @@ a.sh-meter:hover { background: var(--sh-bg-2); }
 .is-unscored .sh-meter-bar { background: repeating-linear-gradient(90deg, var(--sh-bg-3) 0 6px, transparent 6px 10px); }
 .is-unscored .sh-meter-value, .sh-health-grade.is-unscored { color: var(--sh-unknown); }
 @media (max-width: 900px) { .sh-health, .sh-health-dims { grid-template-columns: minmax(0, 1fr); } .sh-health-overall { border-right: 0; border-bottom: 1px solid var(--sh-line); } .sh-meter:nth-child(odd) { border-right: 0; } .sh-meter:nth-last-child(2) { border-bottom: 1px solid var(--sh-line); } }
+
+/* ---------- 22. HEALTH RING (v1.5) ----------------------------------
+   <div class="sh-ring is-poor" style="--value:30">
+     <svg viewBox="0 0 120 120" aria-hidden="true">
+       <circle class="sh-ring-track" cx="60" cy="60" r="52" pathLength="100"/>
+       <circle class="sh-ring-fill"  cx="60" cy="60" r="52" pathLength="100"/>
+     </svg>
+     <div class="sh-ring-label"><span class="sh-ring-value">30</span><span class="sh-ring-max">/100</span></div>
+   </div>
+   Color by score band: is-good / is-fair / is-poor; no score: is-unscored. */
+.sh-ring { position: relative; width: 148px; height: 148px; flex: none; }
+.sh-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.sh-ring circle { fill: none; stroke-width: 10; }
+.sh-ring-track { stroke: var(--sh-bg-3); }
+.sh-ring-fill { stroke: var(--sh-text-dim); stroke-linecap: butt; stroke-dasharray: var(--value, 0) 100; transition: stroke-dasharray .4s var(--sh-ease); }
+.sh-ring.is-good .sh-ring-fill { stroke: var(--sh-ok); }
+.sh-ring.is-fair .sh-ring-fill { stroke: var(--sh-warn); }
+.sh-ring.is-poor .sh-ring-fill { stroke: var(--sh-crit); }
+.sh-ring.is-unscored .sh-ring-fill { stroke: none; }
+.sh-ring.is-unscored .sh-ring-track { stroke-dasharray: 2 2; }
+.sh-ring-label { position: absolute; inset: 0; display: flex; align-items: baseline; justify-content: center; padding-top: 52px; gap: 2px; }
+.sh-ring-value { font-family: var(--sh-font-mono); font-variant-numeric: tabular-nums; font-size: 40px; line-height: 1; color: var(--sh-text-strong); }
+.sh-ring-max { font-family: var(--sh-font-mono); font-size: var(--sh-fs-sm); color: var(--sh-text-dim); }
+.sh-ring.is-unscored .sh-ring-value { font-family: var(--sh-font-sans); font-size: var(--sh-fs-md); font-weight: 600; color: var(--sh-unknown); }
+.sh-health-overall .sh-ring { margin-bottom: var(--sh-s2); }
+.sh-health-cap { margin: 0; font-size: var(--sh-fs-sm); color: var(--sh-text); }
