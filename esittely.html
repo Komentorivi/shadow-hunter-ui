@@ -1,0 +1,260 @@
+<title>Shadow Hunter UI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="shadow-hunter-ui.css">
+<style>
+  /* Esittelysivun omat asettelut. Kaikki värit tulevat kirjaston tokeneista. */
+  html, body { background: var(--sh-bg); color-scheme: dark; }
+  .demo { padding-block: 32px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 56px; max-width: 1240px; margin: 0 auto; }
+  .demo-hero { border-bottom: 1px solid var(--sh-line); padding-block: 16px 40px; display: grid; gap: 14px; }
+  .demo-section { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .demo-section > header { display: grid; gap: 4px; }
+  .demo-shell { border: 1px solid var(--sh-line-strong); border-radius: var(--sh-radius-lg); overflow: hidden; }
+  .demo-shell .sh-app { min-height: 0; }
+  .demo-shell .sh-topbar { position: static; }
+  .swatches { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .sw { border: 1px solid var(--sh-line); border-radius: var(--sh-radius); overflow: hidden; background: var(--sh-bg-1); }
+  .sw i { display: block; height: 44px; border-bottom: 1px solid var(--sh-line); }
+  .sw div { padding: 6px 8px; font-family: var(--sh-font-mono); font-size: 11px; color: var(--sh-text-muted); }
+  .sw b { display: block; color: var(--sh-text-strong); font-weight: 500; }
+  .two { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); }
+  .rule { font-size: 13px; color: var(--sh-text-muted); }
+  .rule b { color: var(--sh-text-strong); font-weight: 600; }
+</style>
+
+<div class="sh-root">
+<div class="demo">
+
+  <section class="demo-hero">
+    <span class="sh-label">Design system · v1.1</span>
+    <h1 class="sh-h1">Shadow Hunter UI</h1>
+    <p class="sh-prose" style="font-size:var(--sh-fs-lg)">Ammattimainen tumma ja vihreä käyttöliittymäkirjasto tietoturvatyökalulle. Toimii tavallisella CSS:llä missä tahansa: HTML, React, Vue, Python-templatet tai Electron. Kaikki luokat alkavat <code class="sh-accent-text">.sh-</code></p>
+    <div class="sh-row">
+      <span class="sh-badge-accent sh-badge">1 css + 1 js</span>
+      <span class="sh-badge">ei riippuvuuksia</span>
+      <span class="sh-badge">Cursor-säännöt mukana</span>
+    </div>
+  </section>
+
+  <!-- KOKO SOVELLUS -->
+  <section class="demo-section">
+    <header><span class="sh-label">Kokonäkymä</span><h2 class="sh-h2">Sovelluksen runko</h2>
+      <p class="sh-muted sh-prose">Yläpalkki, sivuvalikko ja sisältö. Tämä on se malli, jonka mukaan Cursor rakentaa jokaisen sivun.</p></header>
+    <div class="demo-shell">
+      <div class="sh-app">
+        <header class="sh-topbar">
+          <span class="sh-brand">Shadow Hunter</span>
+          <span class="sh-muted sh-mono" style="font-size:var(--sh-fs-sm)"><span class="sh-dot is-live"></span>&nbsp; fw-edge-01 · policy v42</span>
+          <span class="sh-spacer"></span>
+          <button class="sh-btn" type="button">Export plan</button>
+          <button class="sh-btn sh-btn-primary" type="button" id="run">Run analysis</button>
+        </header>
+        <nav class="sh-sidebar" aria-label="Main">
+          <span class="sh-label sh-nav-title">Cleanup</span>
+          <a class="sh-nav-item" aria-current="page" href="#">Overview</a>
+          <a class="sh-nav-item" href="#">Findings <span class="sh-count">316</span></a>
+          <a class="sh-nav-item" href="#">Rules <span class="sh-count">1 284</span></a>
+          <a class="sh-nav-item" href="#">Change plan <span class="sh-count">3</span></a>
+          <a class="sh-nav-item" href="#">History</a>
+          <span class="sh-label sh-nav-title">System</span>
+          <a class="sh-nav-item" href="#">Devices</a>
+          <a class="sh-nav-item" href="#">Settings</a>
+        </nav>
+        <main class="sh-main">
+          <div class="sh-page-header">
+            <div class="sh-stack" style="gap:4px"><span class="sh-label">fw-edge-01</span><h2 class="sh-h2">Overview</h2></div>
+            <div class="sh-search" style="width:min(280px,100%)"><input class="sh-input" id="q" placeholder="Search rule, IP or port"></div>
+          </div>
+          <div class="sh-grid">
+            <div class="sh-stat is-crit"><span class="sh-label">Shadowed</span><span class="sh-stat-value">37</span><span class="sh-stat-delta">+4 since last scan</span></div>
+            <div class="sh-stat is-warn"><span class="sh-label">Redundant</span><span class="sh-stat-value">58</span><span class="sh-stat-delta">−2 since last scan</span></div>
+            <div class="sh-stat is-warn"><span class="sh-label">Unused 90 d</span><span class="sh-stat-value">212</span><span class="sh-stat-delta">16.5 % of rules</span></div>
+            <div class="sh-stat is-accent"><span class="sh-label">Cleanup score</span><span class="sh-stat-value">71</span><span class="sh-stat-delta">target 90</span></div>
+          </div>
+          <div class="sh-alert sh-alert-crit"><span class="sh-alert-title">9 rules allow any → any</span><span>Disable them first. Rule #208 has been open to 203.0.113.0/24 since 2023.</span></div>
+          <div class="sh-bulkbar"><span>3 selected · 0 hits in 90 days</span>
+            <button class="sh-btn sh-btn-sm" type="button">Add to plan</button>
+            <button class="sh-btn sh-btn-sm sh-btn-primary" type="button" id="dis">Disable</button>
+            <button class="sh-btn sh-btn-sm sh-btn-danger" type="button" id="rm">Remove…</button></div>
+          <div class="sh-table-wrap">
+            <table class="sh-table">
+              <thead><tr><th></th><th>Rule</th><th>Name</th><th>Source</th><th>Destination</th><th>Service</th><th class="is-num">Hits 90 d</th><th>Finding</th></tr></thead>
+              <tbody>
+                <tr class="is-selected"><td><label class="sh-check"><input type="checkbox" checked aria-label="Select #112"></label></td><td class="is-mono">#112</td><td>allow-web-legacy</td><td class="is-mono">10.0.0.0/8</td><td class="is-mono">dmz-web</td><td class="is-mono">tcp/80,443</td><td class="is-num">0</td><td class="is-nowrap"><span class="sh-badge sh-badge-crit">Shadowed</span> <span class="sh-muted" style="font-size:11px">by #14</span></td></tr>
+                <tr class="is-selected"><td><label class="sh-check"><input type="checkbox" checked aria-label="Select #208"></label></td><td class="is-mono">#208</td><td>tmp-vendor-vpn</td><td class="is-mono">203.0.113.0/24</td><td class="is-mono">any</td><td class="is-mono">any</td><td class="is-num">0</td><td><span class="sh-badge sh-badge-crit">Any / any</span></td></tr>
+                <tr class="is-selected"><td><label class="sh-check"><input type="checkbox" checked aria-label="Select #311"></label></td><td class="is-mono">#311</td><td>db-backup-old</td><td class="is-mono">10.20.4.0/24</td><td class="is-mono">10.30.1.12</td><td class="is-mono">tcp/1433</td><td class="is-num">0</td><td class="is-nowrap"><span class="sh-badge sh-badge-warn">Unused</span> <span class="sh-muted" style="font-size:11px">last 2025-03-02</span></td></tr>
+                <tr><td><label class="sh-check"><input type="checkbox" aria-label="Select #377"></label></td><td class="is-mono">#377</td><td>dup-dns</td><td class="is-mono">10.0.0.0/8</td><td class="is-mono">10.0.0.53</td><td class="is-mono">udp/53</td><td class="is-num">0</td><td class="is-nowrap"><span class="sh-badge sh-badge-warn">Redundant</span> <span class="sh-muted" style="font-size:11px">dup of #21</span></td></tr>
+                <tr><td><label class="sh-check"><input type="checkbox" aria-label="Select #045"></label></td><td class="is-mono">#045</td><td>mgmt-ssh</td><td class="is-mono">10.99.0.0/16</td><td class="is-mono">core-sw</td><td class="is-mono">tcp/22</td><td class="is-num">18 442</td><td><span class="sh-badge sh-badge-ok">OK</span></td></tr>
+                <tr class="is-muted"><td><label class="sh-check"><input type="checkbox" aria-label="Select #090"></label></td><td class="is-mono">#090</td><td>printer-legacy <span class="sh-badge">disabled</span></td><td class="is-mono">10.40.0.0/24</td><td class="is-mono">10.40.0.9</td><td class="is-mono">tcp/9100</td><td class="is-num">0</td><td><span class="sh-badge sh-badge-info">In plan</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- VÄRIT -->
+  <section class="demo-section">
+    <header><span class="sh-label">Tokenit</span><h2 class="sh-h2">Värit</h2>
+      <p class="sh-muted sh-prose">Teksti on vaaleaa harmaanvihreää. Vihreä korostus on varattu päätoiminnolle, aktiiviselle valinnalle ja yhdelle tärkeälle luvulle. Tilavärit kertovat vakavuuden.</p></header>
+    <div class="swatches" id="swatches"></div>
+  </section>
+
+  <!-- TYPOGRAFIA -->
+  <section class="demo-section">
+    <header><span class="sh-label">Fontit</span><h2 class="sh-h2">Typografia</h2></header>
+    <div class="sh-panel"><div class="sh-panel-body sh-stack">
+      <div class="sh-h1">.sh-h1 Shadow Hunter</div>
+      <div class="sh-h2">.sh-h2 Findings overview</div>
+      <div class="sh-h3">.sh-h3 Rule details</div>
+      <span class="sh-label">.sh-label Source address</span>
+      <p class="sh-prose">Otsikot ja leipäteksti IBM Plex Sans. Pitkät selitykset ovat luettavampia ilman tasalevyistä fonttia. Tekniset arvot kuten <span class="sh-mono">10.20.4.0/24</span> ja <span class="sh-kbd">Ctrl</span> + <span class="sh-kbd">K</span> ovat JetBrains Monoa.</p>
+    </div></div>
+  </section>
+
+  <!-- PAINIKKEET JA MERKIT -->
+  <section class="demo-section">
+    <header><span class="sh-label">Komponentit</span><h2 class="sh-h2">Painikkeet ja merkit</h2></header>
+    <div class="two">
+      <div class="sh-panel"><div class="sh-panel-header"><span class="sh-h3">Buttons</span></div><div class="sh-panel-body sh-stack">
+        <div class="sh-row"><button class="sh-btn sh-btn-primary" type="button">Primary</button><button class="sh-btn" type="button">Default</button><button class="sh-btn sh-btn-ghost" type="button">Ghost</button><button class="sh-btn sh-btn-danger" type="button">Danger</button><button class="sh-btn" type="button" disabled>Disabled</button></div>
+        <div class="sh-row"><button class="sh-btn sh-btn-sm" type="button">Small</button><button class="sh-btn sh-btn-lg sh-btn-primary" type="button">Large primary</button><button class="sh-btn sh-btn-icon" type="button" aria-label="Refresh" data-sh-tip="Refresh">↻</button></div>
+        <div class="sh-btn-group"><button class="sh-btn sh-btn-sm" type="button">24 h</button><button class="sh-btn sh-btn-sm" type="button">7 d</button><button class="sh-btn sh-btn-sm" type="button">90 d</button></div>
+        <p class="rule"><b>Sääntö:</b> yksi primary-painike per näkymä tai dialogi. Poisto on aina danger ja vaatii vahvistuksen.</p>
+      </div></div>
+      <div class="sh-panel"><div class="sh-panel-header"><span class="sh-h3">Badges</span></div><div class="sh-panel-body sh-stack">
+        <div class="sh-row"><span class="sh-badge sh-badge-crit">Critical</span><span class="sh-badge sh-badge-warn">Warning</span><span class="sh-badge sh-badge-info">Info</span><span class="sh-badge sh-badge-ok">OK</span><span class="sh-badge sh-badge-accent">Active</span><span class="sh-badge">Neutral</span></div>
+        <div class="sh-row"><span class="sh-count">316</span><span class="sh-kbd">Ctrl</span><span class="sh-kbd">K</span><span class="sh-dot is-live"></span><span class="sh-muted">live</span></div>
+        <p class="rule"><b>Sääntö:</b> jokaisella tilavärillä on oma muoto (vinoneliö, kolmio, ympyrä), joten väri ei ole ainoa vihje.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- LOMAKKEET -->
+  <section class="demo-section">
+    <header><span class="sh-label">Komponentit</span><h2 class="sh-h2">Lomakkeet</h2></header>
+    <div class="sh-panel"><div class="sh-panel-body">
+      <form class="sh-grid" id="form">
+        <div class="sh-field"><label for="f-name">Rule name</label><input class="sh-input" id="f-name" value="allow-web-legacy"></div>
+        <div class="sh-field"><label for="f-src">Source</label><input class="sh-input is-invalid" id="f-src" value="10.0.0.0/33" aria-invalid="true"><span class="sh-help is-error">Prefix must be 0–32.</span></div>
+        <div class="sh-field"><label for="f-act">Action</label><select class="sh-select" id="f-act"><option>Disable</option><option>Remove</option><option>Keep</option></select></div>
+        <div class="sh-field"><label for="f-port">Port</label><input class="sh-input" id="f-port" placeholder="e.g. 443"><span class="sh-help">Leave empty for any port.</span></div>
+        <div class="sh-field" style="grid-column:1/-1"><label for="f-note">Change note</label><textarea class="sh-textarea" id="f-note" placeholder="Why is this rule changed?"></textarea></div>
+        <div class="sh-row" style="grid-column:1/-1;gap:20px">
+          <label class="sh-check"><input type="checkbox" id="f-c1" checked> Include disabled rules</label>
+          <label class="sh-check"><input type="radio" name="r" id="f-r1" checked> 90 days</label>
+          <label class="sh-check"><input type="radio" name="r" id="f-r2"> 180 days</label>
+          <label class="sh-switch"><input type="checkbox" id="f-s1" checked> Auto-scan nightly</label>
+        </div>
+      </form>
+    </div></div>
+  </section>
+
+  <!-- ILMOITUKSET -->
+  <section class="demo-section">
+    <header><span class="sh-label">Komponentit</span><h2 class="sh-h2">Ilmoitukset ja tilat</h2></header>
+    <div class="two">
+      <div class="sh-stack">
+        <div class="sh-alert sh-alert-crit"><span class="sh-alert-title">Analysis failed</span><span>Could not reach fw-edge-01 on port 443. Check the API key in Settings.</span></div>
+        <div class="sh-alert sh-alert-warn"><span class="sh-alert-title">212 rules unused</span><span>No hits in 90 days. Review before disabling.</span></div>
+        <div class="sh-alert sh-alert-info"><span class="sh-alert-title">Scan scheduled</span><span>Next automatic scan tonight at 02:00.</span></div>
+        <div class="sh-alert sh-alert-ok"><span class="sh-alert-title">Plan applied</span><span>3 rules disabled. You can roll back from History.</span></div>
+        <div class="sh-row"><button class="sh-btn" type="button" data-toast="ok">Toast ok</button><button class="sh-btn" type="button" data-toast="crit">Toast crit</button><button class="sh-btn" type="button" data-toast="warn">Toast warn</button></div>
+      </div>
+      <div class="sh-stack">
+        <div class="sh-stack" style="gap:6px"><span class="sh-label">Scanning 812 / 1 284 rules</span><div class="sh-progress"><span style="--value:63%"></span></div></div>
+        <div class="sh-stack" style="gap:6px"><span class="sh-label"><span class="sh-spinner"></span>&nbsp; Connecting</span><div class="sh-progress is-indeterminate"><span></span></div></div>
+        <div class="sh-stack" style="gap:6px"><div class="sh-skeleton" style="width:70%"></div><div class="sh-skeleton" style="width:90%"></div><div class="sh-skeleton" style="width:45%"></div></div>
+        <div class="sh-empty"><span class="sh-empty-title">No shadowed rules</span><span>Nothing hides behind another rule on this device.</span><button class="sh-btn sh-btn-sm" type="button">Scan another device</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VÄLILEHDET JA TERMINAALI -->
+  <section class="demo-section">
+    <header><span class="sh-label">Komponentit</span><h2 class="sh-h2">Välilehdet, loki ja dialogi</h2></header>
+    <div class="sh-panel">
+      <div class="sh-tabs" data-sh-tabs role="tablist" style="padding:0 var(--sh-s3)">
+        <button class="sh-tab is-active" type="button" aria-selected="true" aria-controls="tp1">Log</button>
+        <button class="sh-tab" type="button" aria-selected="false" aria-controls="tp2">Details <span class="sh-count">4</span></button>
+      </div>
+      <div class="sh-panel-body" id="tp1">
+<pre class="sh-terminal"><span class="sh-prompt">shadow-hunter scan fw-edge-01 --days 90</span>
+<span class="is-dim">[02:00:01]</span> connected to fw-edge-01 (policy v42)
+<span class="is-dim">[02:00:03]</span> loaded 1 284 rules
+<span class="is-dim">[02:00:09]</span> <span class="is-crit">CRIT</span> #112 shadowed by #14
+<span class="is-dim">[02:00:09]</span> <span class="is-crit">CRIT</span> #208 any → any
+<span class="is-dim">[02:00:11]</span> <span class="is-warn">WARN</span> 212 rules without hits in 90 d
+<span class="is-dim">[02:00:12]</span> <span class="is-ok">DONE</span> 316 findings, score 71/100</pre>
+      </div>
+      <div class="sh-panel-body" id="tp2" hidden>
+        <p class="sh-prose">Rule #112 <span class="sh-mono">allow-web-legacy</span> never matches, because rule #14 above it already allows the same traffic.</p>
+      </div>
+      <div class="sh-panel-footer"><button class="sh-btn sh-btn-danger" type="button" id="open-modal">Remove rule #112…</button></div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <header><span class="sh-label">Käyttö</span><h2 class="sh-h2">Missä mitäkin käytetään</h2></header>
+    <div class="sh-table-wrap"><table class="sh-table">
+      <thead><tr><th>Tarve</th><th>Luokka</th></tr></thead>
+      <tbody>
+        <tr><td>Sivun runko</td><td class="is-mono">.sh-app · .sh-topbar · .sh-sidebar · .sh-main</td></tr>
+        <tr><td>Kortti tai osio</td><td class="is-mono">.sh-panel (+ -header / -body / -footer)</td></tr>
+        <tr><td>Tärkeä luku</td><td class="is-mono">.sh-stat is-crit / is-warn / is-ok / is-accent</td></tr>
+        <tr><td>Taulukko</td><td class="is-mono">.sh-table-wrap › .sh-table, tr.is-selected</td></tr>
+        <tr><td>Valittujen rivien toiminnot</td><td class="is-mono">.sh-bulkbar</td></tr>
+        <tr><td>Tila</td><td class="is-mono">.sh-badge-crit / -warn / -info / -ok</td></tr>
+        <tr><td>Viesti sivulla</td><td class="is-mono">.sh-alert-crit / -warn / -info / -ok</td></tr>
+        <tr><td>Lyhyt kuittaus</td><td class="is-mono">SH.toast("Saved", "ok")</td></tr>
+        <tr><td>Vaarallisen toiminnon vahvistus</td><td class="is-mono">&lt;dialog class="sh-modal"&gt;</td></tr>
+        <tr><td>Lokit ja komentorivi</td><td class="is-mono">pre.sh-terminal</td></tr>
+        <tr><td>Tyhjä lista</td><td class="is-mono">.sh-empty</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+</div>
+
+<dialog class="sh-modal" id="modal" aria-labelledby="m-title">
+  <div class="sh-modal-header"><span class="sh-badge sh-badge-crit">Destructive</span><span class="sh-h3" id="m-title">Remove rule #112?</span></div>
+  <div class="sh-modal-body sh-stack">
+    <p>The rule is removed from fw-edge-01 at the next deploy. Disabling is safer and can be undone.</p>
+    <div class="sh-field"><label for="m-confirm">Type REMOVE to confirm</label><input class="sh-input" id="m-confirm" autocomplete="off"></div>
+  </div>
+  <div class="sh-modal-footer">
+    <button class="sh-btn sh-btn-ghost" type="button" id="m-cancel">Cancel</button>
+    <button class="sh-btn" type="button" id="m-disable">Disable instead</button>
+    <button class="sh-btn sh-btn-danger" type="button" id="m-remove" disabled>Remove</button>
+  </div>
+</dialog>
+</div>
+
+<script src="shadow-hunter-ui.js"></script>
+<script>
+  var tokens = [
+    ["--sh-bg","Page"],["--sh-bg-1","Panel"],["--sh-bg-2","Raised"],["--sh-bg-3","Hover"],["--sh-line-strong","Line"],
+    ["--sh-text","Body text"],["--sh-text-muted","Muted text"],["--sh-accent","Accent"],
+    ["--sh-crit","Critical"],["--sh-warn","Warning"],["--sh-info","Info"],["--sh-ok","OK"]
+  ];
+  var cs = getComputedStyle(document.documentElement), sw = document.getElementById("swatches");
+  tokens.forEach(function (t) {
+    var v = cs.getPropertyValue(t[0]).trim();
+    sw.insertAdjacentHTML("beforeend", '<div class="sw"><i style="background:var(' + t[0] + ')"></i><div><b>' + t[1] + '</b>' + t[0] + '<br>' + v + '</div></div>');
+  });
+  document.querySelectorAll("[data-toast]").forEach(function (b) {
+    var msg = { ok: "Rule #112 disabled", crit: "Deploy failed on fw-edge-01", warn: "3 rules still have hits" };
+    b.addEventListener("click", function () { SH.toast(msg[b.dataset.toast], b.dataset.toast); });
+  });
+  document.getElementById("form").addEventListener("submit", function (e) { e.preventDefault(); });
+  document.getElementById("run").addEventListener("click", function () { SH.toast("Analysis started on fw-edge-01", "info"); });
+  document.getElementById("dis").addEventListener("click", function () { SH.toast("3 rules disabled", "ok"); });
+  var modal = document.getElementById("modal"), conf = document.getElementById("m-confirm"), rm = document.getElementById("m-remove");
+  function openModal() { conf.value = ""; rm.disabled = true; if (modal.showModal) modal.showModal(); }
+  document.getElementById("open-modal").addEventListener("click", openModal);
+  document.getElementById("rm").addEventListener("click", openModal);
+  conf.addEventListener("input", function () { rm.disabled = conf.value.trim() !== "REMOVE"; });
+  document.getElementById("m-cancel").addEventListener("click", function () { modal.close(); });
+  document.getElementById("m-disable").addEventListener("click", function () { modal.close(); SH.toast("Rule #112 disabled", "ok"); });
+  rm.addEventListener("click", function () { modal.close(); SH.toast("Rule #112 removed", "crit"); });
+</script>

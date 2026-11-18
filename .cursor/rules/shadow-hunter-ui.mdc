@@ -1,0 +1,74 @@
+---
+description: Shadow Hunter UI design system (professional dark green security-tool look). Use for ALL UI work in this project.
+globs: ["**/*.html", "**/*.css", "**/*.jsx", "**/*.tsx", "**/*.vue", "**/*.svelte", "**/*.py", "**/*.js", "**/*.ts"]
+alwaysApply: true
+---
+
+# Shadow Hunter UI – rules for the AI
+
+The project uses the **Shadow Hunter UI** design system. Files:
+- `shadow-hunter-ui.css` – tokens (`--sh-*`) and components (`.sh-*`). Load it once, globally.
+- `shadow-hunter-ui.js` – optional helpers: `SH.toast(msg, kind)`, `SH.tabs(el)`.
+
+The look is a **professional** dark green security tool (think enterprise SOC product), not a hacker movie.
+- `esittely.html` – live reference of every component. Copy markup from there.
+
+## Hard rules
+1. Use only `.sh-*` classes and `var(--sh-*)` tokens. **Never hard-code colors, fonts or font sizes.** If something is missing, add a new token/class to `shadow-hunter-ui.css` in the same style instead of inline styles.
+2. Put `class="sh-root"` on `<body>` (or the app root element). Everything else depends on it.
+3. Do not add other UI frameworks (Bootstrap, MUI, Tailwind themes, shadcn defaults). If Tailwind exists, map its colors to the `--sh-*` tokens.
+4. Body text is light grey-green (`--sh-text`). Green `--sh-accent` is only for: the primary button, the active nav/tab indicator line, focus, the brand mark, selected rows and at most ONE key number per view. Headings and normal text are never green.
+5. **Forbidden effects:** no glow / text-shadow, no Matrix rain or falling characters, no blinking cursors, no scanlines, no CRT or glitch effects, no typewriter animations, no animated backgrounds. Animation only for loading states and small transitions (max 200 ms).
+5b. Monospace only for technical values (IPs, ports, IDs, logs, code). Headings, labels, buttons and running text use the sans font.
+6. Status colors mean severity, not decoration: `crit` = red (dangerous / shadowed / any-any), `warn` = amber (unused, redundant), `info` = cyan (neutral information), `ok` = mint (fine). Always pair color with text (badges already include a shape).
+7. Exactly ONE `.sh-btn-primary` per view or dialog. Destructive actions use `.sh-btn-danger` and need a `<dialog class="sh-modal">` confirmation.
+8. Numbers, IPs, ports, rule IDs, hashes, timestamps: monospace (`.sh-mono`, `.sh-num`, `td.is-num`, `td.is-mono`).
+9. Every list/table has an empty state (`.sh-empty`) and a loading state (`.sh-skeleton` or `.sh-progress.is-indeterminate`).
+10. Accessibility: keep visible focus, use real `<button>`/`<a>`/`<label>`, `aria-current="page"` on active nav, `aria-selected` on tabs.
+
+## Which component where
+| Need | Use |
+|---|---|
+| Page shell with sidebar | `.sh-app` > `.sh-topbar` + `.sh-sidebar` + `.sh-main` |
+| Section / card | `.sh-panel` (+ `.sh-panel-header`, `.sh-panel-body`, `.sh-panel-footer`) |
+| Key figure | `.sh-grid` of `.sh-stat` (`is-crit`/`is-warn`/`is-ok`/`is-accent`) |
+| Data list | `.sh-table-wrap` > `table.sh-table`; selected rows `tr.is-selected`; large lists `.sh-table-compact` |
+| Actions on selected rows | `.sh-bulkbar` above the table |
+| Status label | `.sh-badge-crit / -warn / -info / -ok / -accent` |
+| Message in page | `.sh-alert-crit / -warn / -info / -ok` with `.sh-alert-title` |
+| Short confirmation | `SH.toast("Saved", "ok")` |
+| Confirm dangerous action | `<dialog class="sh-modal">` |
+| Forms | `.sh-field` > `label` + `.sh-input / .sh-select / .sh-textarea` + `.sh-help` |
+| Search | `<div class="sh-search"><input class="sh-input"></div>` |
+| On/off setting | `.sh-switch`; multiple choice `.sh-check` |
+| Views inside a page | `.sh-tabs` with `.sh-tab` (`data-sh-tabs` for auto handling) |
+| Logs / CLI output | `pre.sh-terminal` with `.sh-prompt`, `.is-crit` … |
+| Keyboard shortcut | `.sh-kbd` |
+| Live status | `.sh-dot.is-live` |
+
+## Page skeleton
+```html
+<body class="sh-root">
+  <div class="sh-app">
+    <header class="sh-topbar">
+      <span class="sh-brand">Shadow Hunter</span>
+      <span class="sh-muted sh-mono">fw-edge-01</span>
+      <span class="sh-spacer"></span>
+      <button class="sh-btn">Export</button>
+      <button class="sh-btn sh-btn-primary">Run analysis</button>
+    </header>
+    <nav class="sh-sidebar">
+      <a class="sh-nav-item" aria-current="page" href="#">Overview</a>
+      <a class="sh-nav-item" href="#">Findings <span class="sh-count">316</span></a>
+    </nav>
+    <main class="sh-main">
+      <div class="sh-page-header"><h1 class="sh-h2">Overview</h1></div>
+      <!-- content -->
+    </main>
+  </div>
+  <script src="shadow-hunter-ui.js"></script>
+</body>
+```
+
+## Tone of text in the UI
+Short, technical, active: "Disable 3 rules", "Rule #112 disabled". No jokes, no "hacking" clichés in labels.
