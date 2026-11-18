@@ -28,3 +28,7 @@ Minimal page:
 
 Fonts (IBM Plex Sans, JetBrains Mono) load from Google Fonts via `@import` in the CSS.
 If the environment blocks Google Fonts, the system fallbacks (Segoe UI, Consolas) are used.
+
+## Changelog
+- **v1.2** – Firewall policy semantics: `--sh-sem-*` tokens (ANY = amber, DENY/retired = red, unknown = slate, disabled = muted),
+  new badges `.sh-badge-unknown` and `.sh-badge-disabled`. Cursor rule now loads only for UI files (not every chat).

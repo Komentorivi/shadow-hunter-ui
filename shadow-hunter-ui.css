@@ -1,5 +1,5 @@
 /* =====================================================================
-   SHADOW HUNTER UI  v1.1
+   SHADOW HUNTER UI  v1.2
    Professional dark green design system (no glow, no rain, no blinking). Framework-agnostic: plain CSS,
    works with HTML, React, Vue, Svelte, Electron, Tauri, Flask/Django
    templates. All classes use the prefix .sh-  All tokens use --sh-
@@ -281,3 +281,26 @@
 @media (prefers-reduced-motion: reduce) {
   .sh-root *, .sh-root *::before, .sh-root *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------- 19. SHADOW HUNTER POLICY SEMANTICS (REQUIREMENTS section 32) ----
+   App meaning -> token. Components use these, never raw status colors.
+   ANY/broad and conflict are amber (warn), not red. Unknown is slate.  */
+:root {
+  --sh-unknown:       #8a97a6;
+  --sh-unknown-bg:    rgba(138, 151, 166, .12);
+  --sh-disabled:      var(--sh-text-dim);
+
+  --sh-sem-normal:    var(--sh-text);
+  --sh-sem-any:       var(--sh-warn);      /* ANY / broad */
+  --sh-sem-deny:      var(--sh-crit);      /* DROP / DENY / RESET */
+  --sh-sem-disabled:  var(--sh-disabled);  /* disabled rule */
+  --sh-sem-active:    var(--sh-ok);        /* production / active / observed */
+  --sh-sem-conflict:  var(--sh-warn);      /* identity / evidence conflict */
+  --sh-sem-retired:   var(--sh-crit);      /* retired */
+  --sh-sem-unknown:   var(--sh-unknown);   /* unknown / no data */
+  --sh-sem-nav:       var(--sh-info);      /* navigation / drilldown */
+}
+.sh-badge-unknown  { color: var(--sh-unknown); background: var(--sh-unknown-bg); }
+.sh-badge-unknown::before { border-radius: 1px; }
+.sh-badge-disabled { color: var(--sh-disabled); background: transparent; border-style: dashed; }
+.sh-root tr.is-disabled td { color: var(--sh-disabled); }

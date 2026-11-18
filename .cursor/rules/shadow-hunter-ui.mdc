@@ -1,7 +1,7 @@
 ---
 description: Shadow Hunter UI design system (professional dark green security-tool look). Use for ALL UI work in this project.
-globs: ["**/*.html", "**/*.css", "**/*.jsx", "**/*.tsx", "**/*.vue", "**/*.svelte", "**/*.py", "**/*.js", "**/*.ts"]
-alwaysApply: true
+globs: ["**/*.html", "**/*.css", "**/*.jsx", "**/*.tsx", "**/*.vue", "**/*.svelte"]
+alwaysApply: false
 ---
 
 # Shadow Hunter UI – rules for the AI
@@ -20,7 +20,10 @@ The look is a **professional** dark green security tool (think enterprise SOC pr
 4. Body text is light grey-green (`--sh-text`). Green `--sh-accent` is only for: the primary button, the active nav/tab indicator line, focus, the brand mark, selected rows and at most ONE key number per view. Headings and normal text are never green.
 5. **Forbidden effects:** no glow / text-shadow, no Matrix rain or falling characters, no blinking cursors, no scanlines, no CRT or glitch effects, no typewriter animations, no animated backgrounds. Animation only for loading states and small transitions (max 200 ms).
 5b. Monospace only for technical values (IPs, ports, IDs, logs, code). Headings, labels, buttons and running text use the sans font.
-6. Status colors mean severity, not decoration: `crit` = red (dangerous / shadowed / any-any), `warn` = amber (unused, redundant), `info` = cyan (neutral information), `ok` = mint (fine). Always pair color with text (badges already include a shape).
+6. Status colors mean severity, not decoration: `crit` = red (dangerous / deny / retired), `warn` = amber (ANY / broad, conflict, unused, redundant), `info` = cyan (navigation, neutral information), `ok` = mint (fine / active / observed), `unknown` = slate (no data). Always pair color with text (badges already include a shape).
+6b. Firewall policy meanings use the `--sh-sem-*` tokens (CSS section 19), never raw status colors:
+   ANY/broad = amber, DROP/DENY/RESET = red, disabled = muted (`.sh-badge-disabled`), production/active/observed = mint,
+   conflict = amber, retired = red, unknown = slate (`.sh-badge-unknown`), navigation = cyan. Default ALLOW has no badge. ANY is never red.
 7. Exactly ONE `.sh-btn-primary` per view or dialog. Destructive actions use `.sh-btn-danger` and need a `<dialog class="sh-modal">` confirmation.
 8. Numbers, IPs, ports, rule IDs, hashes, timestamps: monospace (`.sh-mono`, `.sh-num`, `td.is-num`, `td.is-mono`).
 9. Every list/table has an empty state (`.sh-empty`) and a loading state (`.sh-skeleton` or `.sh-progress.is-indeterminate`).
@@ -34,7 +37,7 @@ The look is a **professional** dark green security tool (think enterprise SOC pr
 | Key figure | `.sh-grid` of `.sh-stat` (`is-crit`/`is-warn`/`is-ok`/`is-accent`) |
 | Data list | `.sh-table-wrap` > `table.sh-table`; selected rows `tr.is-selected`; large lists `.sh-table-compact` |
 | Actions on selected rows | `.sh-bulkbar` above the table |
-| Status label | `.sh-badge-crit / -warn / -info / -ok / -accent` |
+| Status label | `.sh-badge-crit / -warn / -info / -ok / -accent / -unknown / -disabled` |
 | Message in page | `.sh-alert-crit / -warn / -info / -ok` with `.sh-alert-title` |
 | Short confirmation | `SH.toast("Saved", "ok")` |
 | Confirm dangerous action | `<dialog class="sh-modal">` |
