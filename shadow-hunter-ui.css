@@ -1,5 +1,5 @@
 /* =====================================================================
-   SHADOW HUNTER UI  v1.3
+   SHADOW HUNTER UI  v1.4
    Professional dark green design system (no glow, no rain, no blinking). Framework-agnostic: plain CSS,
    works with HTML, React, Vue, Svelte, Electron, Tauri, Flask/Django
    templates. All classes use the prefix .sh-  All tokens use --sh-
@@ -349,3 +349,30 @@
 .sh-panel-header h2 { margin: 0; font-size: var(--sh-fs-lg); font-weight: 600; color: var(--sh-text-strong); }
 .sh-panel-header p { margin: 0; font-size: var(--sh-fs-sm); color: var(--sh-text-muted); }
 .sh-topbar .sh-search { width: min(360px, 40vw); }
+
+/* ---------- 21. POLICY HEALTH (v1.4) ---------------------------------
+   Overall score + one meter per dimension. Color follows grade:
+   is-good = mint, is-fair = amber, is-poor = red, is-unscored = slate.  */
+.sh-health { display: grid; grid-template-columns: minmax(200px, 260px) minmax(0, 1fr); }
+.sh-health-overall { padding: var(--sh-s5); border-right: 1px solid var(--sh-line); display: flex; flex-direction: column; gap: var(--sh-s2); }
+.sh-health-score { font-family: var(--sh-font-mono); font-variant-numeric: tabular-nums; font-size: 56px; line-height: 1; color: var(--sh-text-strong); }
+.sh-health-score small { font-size: var(--sh-fs-lg); color: var(--sh-text-dim); }
+.sh-health-grade { font-size: var(--sh-fs-xl); font-weight: 600; }
+.sh-health-note { font-size: var(--sh-fs-sm); color: var(--sh-text-muted); margin: 0; }
+.sh-health-dims { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sh-meter { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sh-s1) var(--sh-s3); padding: var(--sh-s4) var(--sh-s5); border-bottom: 1px solid var(--sh-line); color: inherit; text-decoration: none; }
+.sh-root a.sh-meter { color: inherit; }
+.sh-meter:nth-child(odd) { border-right: 1px solid var(--sh-line); }
+.sh-meter:nth-last-child(-n+2) { border-bottom: 0; }
+a.sh-meter:hover { background: var(--sh-bg-2); }
+.sh-meter-name { font-weight: 600; color: var(--sh-text-strong); }
+.sh-meter-value { font-family: var(--sh-font-mono); font-variant-numeric: tabular-nums; color: var(--sh-text-strong); }
+.sh-meter-bar { grid-column: 1 / -1; height: 6px; background: var(--sh-bg-3); border-radius: 1px; overflow: hidden; margin: var(--sh-s1) 0; }
+.sh-meter-bar > span { display: block; height: 100%; width: var(--value, 0%); background: var(--sh-text-dim); }
+.sh-meter-why { grid-column: 1 / -1; font-size: var(--sh-fs-sm); color: var(--sh-text-muted); }
+.is-good .sh-meter-bar > span, .sh-health-grade.is-good { background: var(--sh-ok); } .sh-health-grade.is-good { background: none; color: var(--sh-ok); }
+.is-fair .sh-meter-bar > span { background: var(--sh-warn); } .sh-health-grade.is-fair { color: var(--sh-warn); }
+.is-poor .sh-meter-bar > span { background: var(--sh-crit); } .sh-health-grade.is-poor { color: var(--sh-crit); }
+.is-unscored .sh-meter-bar { background: repeating-linear-gradient(90deg, var(--sh-bg-3) 0 6px, transparent 6px 10px); }
+.is-unscored .sh-meter-value, .sh-health-grade.is-unscored { color: var(--sh-unknown); }
+@media (max-width: 900px) { .sh-health, .sh-health-dims { grid-template-columns: minmax(0, 1fr); } .sh-health-overall { border-right: 0; border-bottom: 1px solid var(--sh-line); } .sh-meter:nth-child(odd) { border-right: 0; } .sh-meter:nth-last-child(2) { border-bottom: 1px solid var(--sh-line); } }

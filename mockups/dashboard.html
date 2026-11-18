@@ -36,6 +36,39 @@
       </div>
     </div>
 
+
+    <section class="sh-panel" aria-labelledby="condition">
+      <div class="sh-panel-header"><div>
+        <h2 id="condition">Policy condition</h2>
+        <p>Higher is better. Each dimension opens the rules that lower it.</p>
+      </div></div>
+      <div class="sh-health">
+        <div class="sh-health-overall">
+          <div class="sh-health-score">61<small>/100</small></div>
+          <div class="sh-health-grade is-fair">Fair</div>
+          <p class="sh-health-note">Provisional. Based on 64% of the evidence; the score is final at 70%.</p>
+        </div>
+        <div class="sh-health-dims">
+          <a class="sh-meter is-poor" href="#" style="--value:48%">
+            <span class="sh-meter-name">Exposure</span><span class="sh-meter-value">48</span>
+            <span class="sh-meter-bar"><span></span></span>
+            <span class="sh-meter-why">3 any-to-any allows and 38 broad rules.</span></a>
+          <a class="sh-meter is-fair" href="#" style="--value:71%">
+            <span class="sh-meter-name">Rule hygiene</span><span class="sh-meter-value">71</span>
+            <span class="sh-meter-bar"><span></span></span>
+            <span class="sh-meter-why">41 rules without owner or APP ID, 204 unused objects.</span></a>
+          <a class="sh-meter is-fair" href="#" style="--value:66%">
+            <span class="sh-meter-name">Asset lifecycle</span><span class="sh-meter-value">66</span>
+            <span class="sh-meter-bar"><span></span></span>
+            <span class="sh-meter-why">14 rules point only to retired hosts.</span></a>
+          <a class="sh-meter is-unscored" href="#">
+            <span class="sh-meter-name">Identity quality</span><span class="sh-meter-value">Not scored</span>
+            <span class="sh-meter-bar"><span></span></span>
+            <span class="sh-meter-why">F5 export missing, so 22 VIPs cannot be identified.</span></a>
+        </div>
+      </div>
+    </section>
+
     <div class="sh-split">
       <div class="sh-stack">
       <section class="sh-panel" aria-labelledby="todo">
@@ -103,7 +136,7 @@
               <li class="sh-ready-item is-missing"><span class="sh-ready-name">Traffic logs</span><span class="sh-badge sh-badge-unknown">Missing</span>
                 <span class="sh-ready-note">Connect Panorama logs to confirm live use.</span></li>
             </ul>
-            <p class="sh-quiet">Health score appears when at least half of the evidence is available. Now 46%.</p>
+            <p class="sh-quiet">Evidence now covers 64% of checks. Adding F5 and traffic logs makes the health score final.</p>
           </div>
         </section>
 
