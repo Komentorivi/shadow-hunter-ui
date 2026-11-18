@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shadow Hunter – Overview (mockup)</title>
+<link rel="stylesheet" href="../shadow-hunter-ui.css">
+</head>
+<body class="sh-root">
+<div class="sh-app">
+  <header class="sh-topbar">
+    <span class="sh-brand">Shadow Hunter</span>
+    <span class="sh-badge sh-badge-warn">DEV</span>
+    <span class="sh-spacer"></span>
+    <div class="sh-search"><input class="sh-input" placeholder="Search rules, IPs, APP IDs" aria-label="Search"></div>
+  </header>
+
+  <nav class="sh-sidebar" aria-label="Main">
+    <a class="sh-nav-item" aria-current="page" href="#">Overview</a>
+    <a class="sh-nav-item" href="#">Policies <span class="sh-count">812</span></a>
+    <a class="sh-nav-item" href="#">Worklist <span class="sh-count">116</span></a>
+    <a class="sh-nav-item" href="#">Assets</a>
+    <a class="sh-nav-item" href="#">Data sources</a>
+    <a class="sh-nav-item" href="#">Settings</a>
+  </nav>
+
+  <main class="sh-main">
+    <div class="sh-page-header">
+      <div>
+        <h1 class="sh-h2">fw-prod-01</h1>
+        <p class="sh-summary">Palo Alto policy imported 18 Nov at 09:12. <span class="sh-num">812</span> rules, <span class="sh-num">16</span> of them disabled.</p>
+      </div>
+      <div class="sh-field">
+        <label for="scope">Firewall</label>
+        <select id="scope" class="sh-select"><option>fw-prod-01 (Palo Alto)</option><option>cportal (Fortinet)</option></select>
+      </div>
+    </div>
+
+    <div class="sh-split">
+      <div class="sh-stack">
+      <section class="sh-panel" aria-labelledby="todo">
+        <div class="sh-panel-header">
+          <div>
+            <h2 id="todo">Start here</h2>
+            <p>Highest value first. Each row opens the matching rules.</p>
+          </div>
+        </div>
+        <div class="sh-panel-body">
+          <ol class="sh-queue">
+            <li><a class="sh-queue-item is-ok" href="#">
+              <div><div class="sh-queue-title">Confirm safe removals</div>
+              <div class="sh-queue-why">Target retired in CMDB, no traffic for over a year, no blockers. Ready for a change request.</div></div>
+              <span class="sh-queue-count">14</span><span class="sh-queue-go">Review list</span></a></li>
+            <li><a class="sh-queue-item is-warn" href="#">
+              <div><div class="sh-queue-title">Resolve conflicting evidence</div>
+              <div class="sh-queue-why">Retired in CMDB but the host answers ping or still shows traffic. Someone has to decide.</div></div>
+              <span class="sh-queue-count">9</span><span class="sh-queue-go">Review list</span></a></li>
+            <li><a class="sh-queue-item is-crit" href="#">
+              <div><div class="sh-queue-title">Narrow any-to-any allow rules</div>
+              <div class="sh-queue-why">Allow from any source to any destination. Highest exposure in this policy.</div></div>
+              <span class="sh-queue-count">3</span><span class="sh-queue-go">Review list</span></a></li>
+            <li><a class="sh-queue-item is-warn" href="#">
+              <div><div class="sh-queue-title">Check remote access from wide sources</div>
+              <div class="sh-queue-why">RDP or SSH allowed from large networks. RDP alone is fine; the wide source is the concern.</div></div>
+              <span class="sh-queue-count">27</span><span class="sh-queue-go">Review list</span></a></li>
+            <li><a class="sh-queue-item is-unknown" href="#">
+              <div><div class="sh-queue-title">Clarify load balancer state</div>
+              <div class="sh-queue-why">VIP state unknown or missing from the F5 export. Not treated as retired.</div></div>
+              <span class="sh-queue-count">22</span><span class="sh-queue-go">Review list</span></a></li>
+            <li><a class="sh-queue-item" href="#">
+              <div><div class="sh-queue-title">Add owner or APP ID</div>
+              <div class="sh-queue-why">Application rules need owner, APP ID and APP NAME. This never triggers removal.</div></div>
+              <span class="sh-queue-count">41</span><span class="sh-queue-go">Review list</span></a></li>
+          </ol>
+        </div>
+        <div class="sh-panel-footer">
+          <button class="sh-btn">Export worklist</button>
+          <button class="sh-btn sh-btn-primary">Open worklist</button>
+        </div>
+      </section>
+      <div class="sh-alert sh-alert-info">
+        <span class="sh-alert-title">Shadowing results are hidden</span>
+        <span>The shadowing engine is still being validated. Results appear here once validation passes.</span>
+      </div>
+      </div>
+
+      <div class="sh-stack">
+        <section class="sh-panel" aria-labelledby="evidence">
+          <div class="sh-panel-header"><div>
+            <h2 id="evidence">Evidence</h2>
+            <p>Missing sources limit what can be concluded.</p>
+          </div></div>
+          <div class="sh-panel-body">
+            <ul class="sh-ready">
+              <li class="sh-ready-item"><span class="sh-ready-name">Firewall policy</span><span class="sh-badge sh-badge-ok">Loaded</span>
+                <span class="sh-ready-note">812 rules, objects and groups resolved.</span></li>
+              <li class="sh-ready-item"><span class="sh-ready-name">Hit counters</span><span class="sh-badge sh-badge-warn">Partial</span>
+                <span class="sh-ready-note">4 months collected. Unused verdicts need 6 months.</span></li>
+              <li class="sh-ready-item"><span class="sh-ready-name">ServiceNow CMDB</span><span class="sh-badge sh-badge-ok">Loaded</span>
+                <span class="sh-ready-note">Retired, production and conflicting identities.</span></li>
+              <li class="sh-ready-item is-missing"><span class="sh-ready-name">F5 load balancers</span><span class="sh-badge sh-badge-unknown">Missing</span>
+                <span class="sh-ready-note">Import the F5 export to resolve 22 VIPs.</span></li>
+              <li class="sh-ready-item is-missing"><span class="sh-ready-name">Traffic logs</span><span class="sh-badge sh-badge-unknown">Missing</span>
+                <span class="sh-ready-note">Connect Panorama logs to confirm live use.</span></li>
+            </ul>
+            <p class="sh-quiet">Health score appears when at least half of the evidence is available. Now 46%.</p>
+          </div>
+        </section>
+
+        <section class="sh-panel" aria-labelledby="glance">
+          <div class="sh-panel-header"><div>
+            <h2 id="glance">Policy at a glance</h2>
+            <p>Only checks that found something.</p>
+          </div></div>
+          <div class="sh-panel-body">
+            <dl class="sh-facts">
+              <a href="#"><dt>Broad allow rules</dt><dd class="is-warn">38</dd></a>
+              <a href="#"><dt>Any source</dt><dd class="is-warn">11</dd></a>
+              <a href="#"><dt>Any service</dt><dd class="is-warn">7</dd></a>
+              <a href="#"><dt>Zero hits, window too short</dt><dd>63</dd></a>
+              <a href="#"><dt>Disabled rules</dt><dd>16</dd></a>
+              <a href="#"><dt>Unused objects</dt><dd>204</dd></a>
+            </dl>
+            <p class="sh-quiet">Nothing found: SSH from any, cyclic groups, empty groups.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* =====================================================================
-   SHADOW HUNTER UI  v1.2
+   SHADOW HUNTER UI  v1.3
    Professional dark green design system (no glow, no rain, no blinking). Framework-agnostic: plain CSS,
    works with HTML, React, Vue, Svelte, Electron, Tauri, Flask/Django
    templates. All classes use the prefix .sh-  All tokens use --sh-
@@ -304,3 +304,48 @@
 .sh-badge-unknown::before { border-radius: 1px; }
 .sh-badge-disabled { color: var(--sh-disabled); background: transparent; border-style: dashed; }
 .sh-root tr.is-disabled td { color: var(--sh-disabled); }
+
+/* ---------- 20. ANALYST COMPONENTS (v1.3) ---------------------------
+   .sh-queue    prioritized "what to do next" list (order = priority)
+   .sh-ready    evidence sources: what is loaded, what it unlocks, how to fix
+   .sh-facts    compact list of non-zero findings, each row drills down
+   .sh-quiet    one muted line listing checks that found nothing            */
+.sh-queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--sh-line); border: 1px solid var(--sh-line); border-radius: var(--sh-radius-lg); overflow: hidden; }
+.sh-queue-item { display: grid; grid-template-columns: 3px minmax(0, 1fr) auto auto; align-items: center; gap: var(--sh-s4); padding: var(--sh-s4) var(--sh-s4) var(--sh-s4) 0; background: var(--sh-bg-1); color: inherit; text-decoration: none; transition: background var(--sh-fast) var(--sh-ease); }
+.sh-root a.sh-queue-item { color: inherit; }
+.sh-queue-item:hover { background: var(--sh-bg-2); }
+.sh-queue-item::before { content: ""; align-self: stretch; margin: calc(var(--sh-s4) * -1) 0; background: var(--sh-line-strong); }
+.sh-queue-item.is-crit::before { background: var(--sh-crit); }
+.sh-queue-item.is-warn::before { background: var(--sh-warn); }
+.sh-queue-item.is-ok::before   { background: var(--sh-ok); }
+.sh-queue-item.is-unknown::before { background: var(--sh-unknown); }
+.sh-queue-title { font-size: var(--sh-fs-lg); font-weight: 600; color: var(--sh-text-strong); line-height: 1.3; }
+.sh-queue-why { margin-top: 2px; font-size: var(--sh-fs-sm); color: var(--sh-text-muted); max-width: 64ch; }
+.sh-queue-count { font-family: var(--sh-font-mono); font-variant-numeric: tabular-nums; font-size: var(--sh-fs-xl); color: var(--sh-text-strong); min-width: 4ch; text-align: right; }
+.sh-queue-go { font-size: var(--sh-fs-sm); color: var(--sh-info); white-space: nowrap; }
+.sh-queue-item:hover .sh-queue-go { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 760px) { .sh-queue-item { grid-template-columns: 3px minmax(0, 1fr) auto; } .sh-queue-go { display: none; } }
+
+.sh-ready { list-style: none; margin: 0; padding: 0; }
+.sh-ready-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px var(--sh-s3); padding: var(--sh-s3) 0; border-bottom: 1px solid var(--sh-line); }
+.sh-ready-item:last-child { border-bottom: 0; }
+.sh-ready-name { font-weight: 600; color: var(--sh-text-strong); }
+.sh-ready-note { grid-column: 1 / -1; font-size: var(--sh-fs-sm); color: var(--sh-text-muted); }
+.sh-ready-item.is-missing .sh-ready-name { color: var(--sh-text); }
+
+.sh-facts { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+.sh-facts > a { display: contents; color: inherit; text-decoration: none; }
+.sh-facts dt, .sh-facts dd { margin: 0; padding: var(--sh-s2) 0; border-bottom: 1px solid var(--sh-line); }
+.sh-facts dd { font-family: var(--sh-font-mono); font-variant-numeric: tabular-nums; text-align: right; color: var(--sh-text-strong); }
+.sh-facts > a:hover dt { color: var(--sh-info); }
+.sh-facts dd.is-warn { color: var(--sh-warn); } .sh-facts dd.is-crit { color: var(--sh-crit); }
+
+.sh-quiet { margin: var(--sh-s3) 0 0; font-size: var(--sh-fs-sm); color: var(--sh-text-dim); }
+.sh-split { display: grid; gap: var(--sh-s5); grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr); align-items: start; }
+.sh-split > .sh-stack { display: flex; flex-direction: column; gap: var(--sh-s5); }
+@media (max-width: 1100px) { .sh-split { grid-template-columns: minmax(0, 1fr); } }
+.sh-summary { margin: var(--sh-s1) 0 0; color: var(--sh-text-muted); }
+.sh-summary .sh-num { color: var(--sh-text-strong); }
+.sh-panel-header h2 { margin: 0; font-size: var(--sh-fs-lg); font-weight: 600; color: var(--sh-text-strong); }
+.sh-panel-header p { margin: 0; font-size: var(--sh-fs-sm); color: var(--sh-text-muted); }
+.sh-topbar .sh-search { width: min(360px, 40vw); }

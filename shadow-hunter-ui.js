@@ -1,4 +1,4 @@
-/* SHADOW HUNTER UI v1.2 – optional helpers. No dependencies.
+/* SHADOW HUNTER UI v1.3 – optional helpers. No dependencies.
    SH.toast("Rule #112 disabled", "ok" | "crit" | "warn" | "info")
    SH.tabs(containerElement)       – click handling for .sh-tabs (auto for [data-sh-tabs])
 */

@@ -30,5 +30,7 @@ Fonts (IBM Plex Sans, JetBrains Mono) load from Google Fonts via `@import` in th
 If the environment blocks Google Fonts, the system fallbacks (Segoe UI, Consolas) are used.
 
 ## Changelog
+- **v1.3** – Analyst components: `.sh-queue` (prioritized worklist), `.sh-ready` (evidence sources), `.sh-facts` (non-zero findings),
+  `.sh-quiet`, `.sh-split` layout. Mockup: `mockups/dashboard.html` (overview page, example data).
 - **v1.2** – Firewall policy semantics: `--sh-sem-*` tokens (ANY = amber, DENY/retired = red, unknown = slate, disabled = muted),
   new badges `.sh-badge-unknown` and `.sh-badge-disabled`. Cursor rule now loads only for UI files (not every chat).
